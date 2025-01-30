@@ -2,8 +2,8 @@ use anchor_lang::event;
 use anchor_lang::prelude::*;
 
 use crate::constant::PRICES_LENGTH;
-use crate::instructions::SwapType;
 use crate::QuoteTokenBadgeStatus;
+use crate::SwapType;
 
 #[event]
 pub struct TokenMillConfigCreationEvent {

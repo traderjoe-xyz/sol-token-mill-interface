@@ -1,19 +1,10 @@
 use anchor_lang::prelude::*;
 use anchor_spl::token_interface::{Mint, TokenAccount, TokenInterface};
 
-use crate::{errors::TokenMillError, events::TokenMillSwapEvent, state::Market, TokenMillConfig};
-
-#[derive(Debug, AnchorSerialize, AnchorDeserialize, Copy, Clone, PartialEq)]
-pub enum SwapType {
-    Buy,  // Buy base token
-    Sell, // Sell base token
-}
-
-#[derive(Debug, AnchorSerialize, AnchorDeserialize, Copy, Clone, PartialEq)]
-pub enum SwapAmountType {
-    ExactInput,
-    ExactOutput,
-}
+use crate::{
+    errors::TokenMillError, events::TokenMillSwapEvent, state::Market, SwapAmountType, SwapType,
+    TokenMillConfig,
+};
 
 #[event_cpi]
 #[derive(Accounts)]

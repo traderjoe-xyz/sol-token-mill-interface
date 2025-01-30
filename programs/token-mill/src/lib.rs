@@ -13,6 +13,18 @@ pub mod state;
 use instructions::*;
 use state::*;
 
+#[derive(Debug, AnchorSerialize, AnchorDeserialize, Copy, Clone, PartialEq)]
+pub enum SwapType {
+    Buy,  // Buy base token
+    Sell, // Sell base token
+}
+
+#[derive(Debug, AnchorSerialize, AnchorDeserialize, Copy, Clone, PartialEq)]
+pub enum SwapAmountType {
+    ExactInput,
+    ExactOutput,
+}
+
 #[program]
 pub mod token_mill {
     use super::*;

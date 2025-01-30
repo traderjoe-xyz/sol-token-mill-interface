@@ -4,9 +4,8 @@ use anchor_spl::token_interface::{Mint, TokenAccount, TokenInterface};
 use crate::{
     errors::TokenMillError,
     events::TokenMillSwapEvent,
-    instructions::{SwapAmountType, SwapType},
     state::{Market, MARKET_AUTHORITY_PDA_SEED},
-    MarketAuthority, TokenMillConfig,
+    MarketAuthority, SwapAmountType, SwapType, TokenMillConfig,
 };
 
 #[event_cpi]
