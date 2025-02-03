@@ -2,8 +2,8 @@ use anchor_lang::prelude::*;
 
 use crate::{
     events::TokenMillMarketFreedEvent,
-    state::{Market, MARKET_AUTHORITY_PDA_SEED},
-    MarketAuthority,
+    state::{Market, SWAP_AUTHORITY_BADGE_PDA_SEED},
+    SwapAuthorityBadge,
 };
 
 #[event_cpi]
@@ -14,12 +14,12 @@ pub struct FreeMarket<'info> {
 
     #[account(
         mut,
-        seeds = [MARKET_AUTHORITY_PDA_SEED.as_bytes(), market.key().as_ref(), authority.key().as_ref()],
-        bump = market_authority.bump,
+        seeds = [SWAP_AUTHORITY_BADGE_PDA_SEED.as_bytes(), market.key().as_ref(), swap_authority.key().as_ref()],
+        bump = swap_authority_badge.bump,
     )]
-    pub market_authority: Account<'info, MarketAuthority>,
+    pub swap_authority_badge: Account<'info, SwapAuthorityBadge>,
 
-    pub authority: Signer<'info>,
+    pub swap_authority: Signer<'info>,
 }
 
 pub fn handler(ctx: Context<FreeMarket>) -> Result<()> {

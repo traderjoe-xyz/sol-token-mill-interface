@@ -1,8 +1,8 @@
 use anchor_lang::prelude::*;
 
 use crate::{
-    errors::TokenMillError, events::TokenMillMarketLockedEvent, state::Market, MarketAuthority,
-    MARKET_AUTHORITY_PDA_SEED,
+    errors::TokenMillError, events::TokenMillMarketLockedEvent, state::Market, SwapAuthorityBadge,
+    SWAP_AUTHORITY_BADGE_PDA_SEED,
 };
 
 #[event_cpi]
@@ -14,12 +14,12 @@ pub struct LockMarket<'info> {
 
     #[account(
         init,
-        seeds = [MARKET_AUTHORITY_PDA_SEED.as_bytes(), market.key().as_ref(), authority.as_ref()],
+        seeds = [SWAP_AUTHORITY_BADGE_PDA_SEED.as_bytes(), market.key().as_ref(), authority.as_ref()],
         bump,
         payer = creator,
-        space = 8 + MarketAuthority::INIT_SPACE
+        space = 8 + SwapAuthorityBadge::INIT_SPACE
     )]
-    pub market_authority: Account<'info, MarketAuthority>,
+    pub swap_authority_badge: Account<'info, SwapAuthorityBadge>,
 
     #[account(mut)]
     pub creator: Signer<'info>,
@@ -31,7 +31,7 @@ pub struct LockMarket<'info> {
 pub fn handler(ctx: Context<LockMarket>, _authority: Pubkey) -> Result<()> {
     emit_cpi!(TokenMillMarketLockedEvent {
         market: ctx.accounts.market.key(),
-        authority: ctx.accounts.market_authority.key(),
+        swap_authority: ctx.accounts.swap_authority_badge.key(),
     });
 
     Ok(())

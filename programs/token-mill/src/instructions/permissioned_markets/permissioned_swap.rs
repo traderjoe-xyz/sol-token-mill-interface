@@ -4,8 +4,8 @@ use anchor_spl::token_interface::{Mint, TokenAccount, TokenInterface};
 use crate::{
     errors::TokenMillError,
     events::TokenMillSwapEvent,
-    state::{Market, MARKET_AUTHORITY_PDA_SEED},
-    MarketAuthority, SwapAmountType, SwapType, TokenMillConfig,
+    state::{Market, SWAP_AUTHORITY_BADGE_PDA_SEED},
+    SwapAmountType, SwapAuthorityBadge, SwapType, TokenMillConfig,
 };
 
 #[event_cpi]
@@ -22,10 +22,10 @@ pub struct PermissionedSwap<'info> {
     pub market: AccountLoader<'info, Market>,
 
     #[account(
-        seeds = [MARKET_AUTHORITY_PDA_SEED.as_bytes(), market.key().as_ref(), authority.key().as_ref()],
-        bump = market_authority.bump,
+        seeds = [SWAP_AUTHORITY_BADGE_PDA_SEED.as_bytes(), market.key().as_ref(), swap_authority.key().as_ref()],
+        bump = swap_authority_badge.bump,
     )]
-    pub market_authority: Account<'info, MarketAuthority>,
+    pub swap_authority_badge: Account<'info, SwapAuthorityBadge>,
 
     pub base_token_mint: InterfaceAccount<'info, Mint>,
 
@@ -66,7 +66,7 @@ pub struct PermissionedSwap<'info> {
     #[account(mut)]
     pub referral_token_account: Option<InterfaceAccount<'info, TokenAccount>>,
 
-    pub authority: Signer<'info>,
+    pub swap_authority: Signer<'info>,
     pub user: Signer<'info>,
 
     pub base_token_program: Interface<'info, TokenInterface>,

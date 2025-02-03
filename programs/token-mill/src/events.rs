@@ -142,7 +142,7 @@ pub struct TokenMillVestingPlanReleaseEvent {
 #[event]
 pub struct TokenMillMarketLockedEvent {
     pub market: Pubkey,
-    pub authority: Pubkey,
+    pub swap_authority: Pubkey,
 }
 
 #[event]
